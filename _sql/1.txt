@@ -1,0 +1,19 @@
+create database dz08_10 with owner=postgres encoding='UTF8';
+
+\c dz08_10;
+
+create table public.person(
+     id int primary key,
+     fio varchar
+);
+
+create sequence public.person_id_seq;
+
+create table public.siteuser(
+     id int primary key,
+     name varchar,
+     pass varchar,
+     role varchar
+);
+
+create sequence public.user_id_seq;
