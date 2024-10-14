@@ -70,11 +70,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         L.log("E configure()");
     }
 
-    @Bean
+    /*@Bean
     public PasswordEncoder passwordEncoder() {
         PasswordEncoder encoder = new BCryptPasswordEncoder(); //PasswordEncoderFactories.createDelegatingPasswordEncoder();
         return encoder;
-    }
+    }*/
 
     @Bean
     public AuthenticationSuccessHandler MyAuthenticationSuccessHandler(){
@@ -86,7 +86,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
 
-//обработчик успешной аутентификации(для перенаправления при успешной регистрации)
+//обработчик успешной аутентификации(для перенаправления при успешной авторизации)
 class myAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
