@@ -70,12 +70,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         L.log("E configure()");
     }
 
-    /*@Bean
-    public PasswordEncoder passwordEncoder() {
-        PasswordEncoder encoder = new BCryptPasswordEncoder(); //PasswordEncoderFactories.createDelegatingPasswordEncoder();
-        return encoder;
-    }*/
-
     @Bean
     public AuthenticationSuccessHandler MyAuthenticationSuccessHandler(){
         return new myAuthenticationSuccessHandler();
