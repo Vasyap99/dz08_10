@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.validation.BindingResult;
 
 import java.util.List;
 import java.util.Optional;
@@ -30,7 +29,7 @@ public class RegisterController {
         return "register";
     }
     @PostMapping("/register")
-    public String register2(@ModelAttribute("u") UserDto u, BindingResult br){
+    public String register2(@ModelAttribute("u") UserDto u){
         rs.saveUser(u);
         return "redirect:login";
     }

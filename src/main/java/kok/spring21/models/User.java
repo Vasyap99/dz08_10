@@ -1,24 +1,27 @@
 package kok.spring21.models;
 
 import javax.persistence.*;
+import lombok.*;
 
 @Entity
 @Table(name="siteuser")
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
     @Id
     @Column(name="id",nullable=false)
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    int i;
+    private int i;
 
     @Column
-    String name;
+    private String name;
     @Column
-    String pass;
-
+    private String pass;
     @Column
-    String role;
+    private String role;
 
-    public User(){}
     public User(String name, String pass, String role) {
         this.name = name;
         this.pass = pass;
@@ -29,31 +32,4 @@ public class User {
         this.pass = pass;
         this.role = "ROLE_USER";
     }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPass() {
-        return pass;
-    }
-
-    public void setPass(String pass) {
-        this.pass = pass;
-    }
-
-
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
 }
