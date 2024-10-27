@@ -10,6 +10,14 @@ public class User {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     int i;
 
+    @Column
+    String name;
+    @Column
+    String pass;
+
+    @Column
+    String role;
+
     public User(){}
     public User(String name, String pass, String role) {
         this.name = name;
@@ -38,10 +46,7 @@ public class User {
         this.pass = pass;
     }
 
-    @Column
-    String name;
-    @Column
-    String pass;
+
 
     public String getRole() {
         return role;
@@ -51,6 +56,4 @@ public class User {
         this.role = role;
     }
 
-    @Column
-    String role;
 }
