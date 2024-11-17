@@ -35,6 +35,11 @@ import kok.spring21.myLogger;
 
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import kok.spring21.AccountUserDetailsService;
+
+
 
 @Configuration
 @ComponentScan("kok.spring21")
@@ -42,7 +47,15 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    AuthProvider ap;
+    private AuthProvider ap;
+
+    
+    private AccountUserDetailsService userDetailsService;
+
+    @Autowired
+    public SecurityConfig(AccountUserDetailsService userDetailsService){
+        this.userDetailsService=userDetailsService;
+    }
 
     @Autowired
     myLogger L;
@@ -50,24 +63,42 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(AuthenticationManagerBuilder a) throws Exception{
         System.out.println(">>>SC-c()");
-        a.authenticationProvider(ap);
+        a.userDetailsService(userDetailsService);
     }
 
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception{
-        L.log("0 configure()");
+    public void configure(HttpSecurity http) throws Exception{
+        //L.log("0 configure()");
 
-        http.authorizeRequests()
+        //return 
+         http.authorizeRequests()
         .antMatchers("/register").permitAll()
         .antMatchers("/admin/**").hasRole("ADMIN")
         .anyRequest().authenticated()
         .and()
         .httpBasic()
         .and()
-        .formLogin().successHandler(MyAuthenticationSuccessHandler());
+        .formLogin().successHandler(MyAuthenticationSuccessHandler())
 
-        L.log("E configure()");
+        /*.and().build()*/ ;
+
+        //L.log("E configure()");
+    }
+
+    /*@Bean
+    public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception{
+        AuthenticationManager authenticationManager=
+            http.getSharedObject(AuthenticationManagerBuilder.class)
+                .userDetailsService(userDetailsService)
+                .passwordEncoder(passwordEncoder())
+                .and().build();
+        return authenticationManager;
+    }*/
+
+    @Bean
+    public PasswordEncoder passwordEncoder(){
+        return org.springframework.security.crypto.password.NoOpPasswordEncoder.getInstance(); ////BCryptPasswordEncoder();
     }
 
     @Bean
